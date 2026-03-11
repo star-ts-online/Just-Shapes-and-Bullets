@@ -1,0 +1,206 @@
+[gd_scene load_steps=14 format=3 uid="uid://b6rdx0qrh60ka"]
+
+[ext_resource type="Script" uid="uid://ca356m7m7gxge" path="res://level.gd" id="1_m3clv"]
+[ext_resource type="PackedScene" uid="uid://djwxkre6s36kh" path="res://Wall.tscn" id="2_t7iv1"]
+[ext_resource type="Script" uid="uid://c1mclhq8kv1in" path="res://Sprites/player.gd" id="3_wkftn"]
+[ext_resource type="AudioStream" uid="uid://fk2wr1mc7a4q" path="res://SFX/sfx_shot.wav" id="4_86ljf"]
+[ext_resource type="Script" uid="uid://cvd1y2vsvgxo6" path="res://enemy_spawner.gd" id="4_q4iis"]
+[ext_resource type="Script" uid="uid://c7fhdd6an4hx" path="res://timer_label.gd" id="4_wkftn"]
+[ext_resource type="AudioStream" uid="uid://rmea1epwpxo8" path="res://SFX/sfx_hurt.wav" id="5_ofirr"]
+[ext_resource type="Script" uid="uid://1q6dff22hn4l" path="res://hp_label.gd" id="5_q4iis"]
+[ext_resource type="AudioStream" uid="uid://cxav30msssuu0" path="res://SFX/sfx_enemy_spawn.wav" id="6_3ywx5"]
+[ext_resource type="Texture2D" uid="uid://4yhbirgsxp8x" path="res://Sprites/circle-03.png" id="7_mxnmf"]
+[ext_resource type="Script" uid="uid://l6wfihxx1peb" path="res://crosshair.gd" id="8_4eo0i"]
+[ext_resource type="AudioStream" uid="uid://b0ff7j18s3fmy" path="res://SFX/Just Shapes and Bullets OST.ogg" id="12_d6u53"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4iis"]
+size = Vector2(32, 32)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_m3clv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Box" type="Node2D" parent="." groups=["wall"]]
+
+[node name="Wall1" parent="Box" groups=["wall"] instance=ExtResource("2_t7iv1")]
+position = Vector2(-304, 21)
+
+[node name="Wall2" parent="Box" groups=["wall"] instance=ExtResource("2_t7iv1")]
+position = Vector2(21, -304)
+rotation = -1.5708
+
+[node name="Wall3" parent="Box" groups=["wall"] instance=ExtResource("2_t7iv1")]
+position = Vector2(296, 24)
+
+[node name="Wall4" parent="Box" groups=["wall"] instance=ExtResource("2_t7iv1")]
+position = Vector2(24, 296)
+rotation = -1.5708
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
+motion_mode = 1
+script = ExtResource("3_wkftn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_q4iis")
+
+[node name="Polygon2D" type="Polygon2D" parent="Player"]
+polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+
+[node name="Area2D" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+shape = SubResource("RectangleShape2D_q4iis")
+
+[node name="invul_timer" type="Timer" parent="Player"]
+wait_time = 1.5
+
+[node name="blink_timer" type="Timer" parent="Player"]
+wait_time = 0.1
+
+[node name="shoot_sfx" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("4_86ljf")
+volume_db = -20.0
+autoplay = true
+
+[node name="hurt_sfx" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("5_ofirr")
+volume_db = -20.0
+
+[node name="spawners" type="Node2D" parent="."]
+
+[node name="left_spawner_1" type="Marker2D" parent="spawners"]
+position = Vector2(-448, 0)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/left_spawner_1"]
+autostart = true
+
+[node name="left_spawner_2" type="Marker2D" parent="spawners"]
+position = Vector2(-448, -128)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/left_spawner_2"]
+autostart = true
+
+[node name="left_spawner_3" type="Marker2D" parent="spawners"]
+position = Vector2(-448, 128)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/left_spawner_3"]
+autostart = true
+
+[node name="right_spawner_1" type="Marker2D" parent="spawners"]
+position = Vector2(448, 0)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/right_spawner_1"]
+autostart = true
+
+[node name="right_spawner_2" type="Marker2D" parent="spawners"]
+position = Vector2(448, 128)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/right_spawner_2"]
+autostart = true
+
+[node name="right_spawner_3" type="Marker2D" parent="spawners"]
+position = Vector2(448, -128)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/right_spawner_3"]
+autostart = true
+
+[node name="bottom_spawner_1" type="Marker2D" parent="spawners"]
+position = Vector2(0, 448)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/bottom_spawner_1"]
+autostart = true
+
+[node name="bottom_spawner_2" type="Marker2D" parent="spawners"]
+position = Vector2(-128, 448)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/bottom_spawner_2"]
+autostart = true
+
+[node name="bottom_spawner_3" type="Marker2D" parent="spawners"]
+position = Vector2(128, 448)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/bottom_spawner_3"]
+autostart = true
+
+[node name="top_spawner_1" type="Marker2D" parent="spawners"]
+position = Vector2(0, -448)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/top_spawner_1"]
+autostart = true
+
+[node name="top_spawner_2" type="Marker2D" parent="spawners"]
+position = Vector2(128, -448)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/top_spawner_2"]
+autostart = true
+
+[node name="top_spawner_3" type="Marker2D" parent="spawners"]
+position = Vector2(-128, -448)
+script = ExtResource("4_q4iis")
+
+[node name="Timer" type="Timer" parent="spawners/top_spawner_3"]
+autostart = true
+
+[node name="spawn_sfx" type="AudioStreamPlayer" parent="spawners"]
+stream = ExtResource("6_3ywx5")
+volume_db = -20.0
+
+[node name="ui" type="Node" parent="."]
+
+[node name="timer_label" type="Label" parent="ui"]
+offset_left = -320.0
+offset_top = -352.0
+offset_right = -256.0
+offset_bottom = -328.0
+script = ExtResource("4_wkftn")
+
+[node name="hp_label" type="Label" parent="ui"]
+offset_left = 232.0
+offset_top = -352.0
+offset_right = 312.0
+offset_bottom = -328.0
+horizontal_alignment = 2
+script = ExtResource("5_q4iis")
+
+[node name="game_timer" type="Timer" parent="ui"]
+autostart = true
+
+[node name="crosshair" type="Sprite2D" parent="ui"]
+position = Vector2(-736, -288)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_mxnmf")
+script = ExtResource("8_4eo0i")
+
+[node name="bgm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_d6u53")
+volume_db = -5.0
+autoplay = true
+
+[connection signal="area_entered" from="Player/Area2D" to="Player" method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Player/invul_timer" to="Player" method="_on_invul_timer_timeout"]
+[connection signal="timeout" from="Player/blink_timer" to="Player" method="_on_blink_timer_timeout"]
+[connection signal="timeout" from="spawners/left_spawner_1/Timer" to="spawners/left_spawner_1" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/left_spawner_2/Timer" to="spawners/left_spawner_2" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/left_spawner_3/Timer" to="spawners/left_spawner_3" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/right_spawner_1/Timer" to="spawners/right_spawner_1" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/right_spawner_2/Timer" to="spawners/right_spawner_2" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/right_spawner_3/Timer" to="spawners/right_spawner_3" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/bottom_spawner_1/Timer" to="spawners/bottom_spawner_1" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/bottom_spawner_2/Timer" to="spawners/bottom_spawner_2" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/bottom_spawner_3/Timer" to="spawners/bottom_spawner_3" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/top_spawner_1/Timer" to="spawners/top_spawner_1" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/top_spawner_2/Timer" to="spawners/top_spawner_2" method="_on_timer_timeout"]
+[connection signal="timeout" from="spawners/top_spawner_3/Timer" to="spawners/top_spawner_3" method="_on_timer_timeout"]
+[connection signal="timeout" from="ui/game_timer" to="ui/timer_label" method="_on_game_timer_timeout"]

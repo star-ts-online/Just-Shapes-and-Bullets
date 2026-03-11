@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://f4weplhf0brd"]
+
+[ext_resource type="Script" uid="uid://q4p60c0elacv" path="res://Sprites/enemy.gd" id="1_fq4fi"]
+[ext_resource type="AudioStream" uid="uid://cuqycfdpjc0lr" path="res://SFX/sfx_enemy_death.wav" id="2_r3tu1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gv1p6"]
+size = Vector2(32, 32)
+
+[node name="enemy" type="Node2D" groups=["enemy_instance"]]
+script = ExtResource("1_fq4fi")
+
+[node name="Area2D" type="Area2D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_gv1p6")
+
+[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
+rotation = 1.57079
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, -16, -16, 16, 16, 16)
+
+[node name="enemy_death_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_r3tu1")
+volume_db = -20.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

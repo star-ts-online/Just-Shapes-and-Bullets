@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://pjxraa3umaht"]
+
+[ext_resource type="Script" uid="uid://n6ctm0baq1wu" path="res://Sprites/kill_vfx.gd" id="1_sgf74"]
+[ext_resource type="AudioStream" uid="uid://cuqycfdpjc0lr" path="res://SFX/sfx_enemy_death.wav" id="2_c2br6"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_sgf74")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(1.90735e-06, 9.53674e-07)
+scale = Vector2(0.253086, 0.253086)
+polygon = PackedVector2Array(-24, -16, -56, -80, 0, -24, 16, -56, 16, -24, 56, 0, 16, 16, 8, 64, -8, 24, -40, 48, -40, 16, -120, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="kill_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_c2br6")
+volume_db = -20.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

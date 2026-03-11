@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgkvp1qu5thk8"]
+
+[ext_resource type="Script" uid="uid://bmhhpqyfff0i3" path="res://Sprites/bullet.gd" id="1_7ejti"]
+[ext_resource type="AudioStream" uid="uid://cuqycfdpjc0lr" path="res://SFX/sfx_enemy_death.wav" id="2_fgyop"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07srm"]
+size = Vector2(16, 16)
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_7ejti")
+
+[node name="Area2D" type="Area2D" parent="." groups=["bullet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_07srm")
+
+[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
+rotation = -1.57079
+polygon = PackedVector2Array(0, -8, -8, 1.77701e-05, 0, 8, 8, -1.77701e-05)
+
+[node name="enemy_death_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_fgyop")
+volume_db = -20.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

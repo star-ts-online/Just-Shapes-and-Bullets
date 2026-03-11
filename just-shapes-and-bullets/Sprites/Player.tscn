@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bia3hwy5iepop"]
+
+[ext_resource type="Script" uid="uid://c1mclhq8kv1in" path="res://Sprites/player.gd" id="1_awwv4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ang8"]
+size = Vector2(32, 32)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_awwv4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_3ang8")
+
+[node name="Polygon2D" type="Polygon2D" parent="Player"]
+polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)

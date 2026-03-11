@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmxf1usrj03nx"]
+
+[ext_resource type="Script" uid="uid://bcy4p213u58yy" path="res://instructions.gd" id="1_7ls63"]
+[ext_resource type="AudioStream" uid="uid://fk2wr1mc7a4q" path="res://SFX/sfx_shot.wav" id="2_h8hbf"]
+
+[node name="instructions" type="Node2D"]
+script = ExtResource("1_7ls63")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -256.0
+offset_top = -320.0
+offset_right = 256.0
+offset_bottom = -192.0
+theme_override_font_sizes/font_size = 35
+text = "Objective: Survive for 3 minutes."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -576.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 35
+text = "Press WASD to move."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 64.0
+offset_top = -64.0
+offset_right = 576.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 35
+text = "Click to shoot enemies."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Label4" type="Label" parent="."]
+offset_left = -256.0
+offset_top = 112.0
+offset_right = 256.0
+offset_bottom = 240.0
+theme_override_font_sizes/font_size = 35
+text = "Good Luck!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+offset_left = -64.0
+offset_top = 256.0
+offset_right = 64.0
+offset_bottom = 319.0
+theme_override_font_sizes/font_size = 35
+text = "Start!"
+
+[node name="button_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_h8hbf")
+volume_db = -20.0
+autoplay = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

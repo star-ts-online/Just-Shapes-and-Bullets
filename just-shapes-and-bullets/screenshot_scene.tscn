@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://jpda4n2f62g6"]
+
+[ext_resource type="PackedScene" uid="uid://djwxkre6s36kh" path="res://Wall.tscn" id="1_d40om"]
+[ext_resource type="Script" uid="uid://c1mclhq8kv1in" path="res://Sprites/player.gd" id="2_1rums"]
+[ext_resource type="AudioStream" uid="uid://fk2wr1mc7a4q" path="res://SFX/sfx_shot.wav" id="3_fisei"]
+[ext_resource type="AudioStream" uid="uid://rmea1epwpxo8" path="res://SFX/sfx_hurt.wav" id="4_k15um"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5popk"]
+size = Vector2(32, 32)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Box" type="Node2D" parent="." groups=["wall"]]
+
+[node name="Wall1" parent="Box" groups=["wall"] instance=ExtResource("1_d40om")]
+position = Vector2(-304, 21)
+
+[node name="Wall2" parent="Box" groups=["wall"] instance=ExtResource("1_d40om")]
+position = Vector2(21, -304)
+rotation = -1.5708
+
+[node name="Wall3" parent="Box" groups=["wall"] instance=ExtResource("1_d40om")]
+position = Vector2(296, 24)
+
+[node name="Wall4" parent="Box" groups=["wall"] instance=ExtResource("1_d40om")]
+position = Vector2(24, 296)
+rotation = -1.5708
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
+motion_mode = 1
+script = ExtResource("2_1rums")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_5popk")
+
+[node name="Polygon2D" type="Polygon2D" parent="Player"]
+polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+
+[node name="Area2D" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+shape = SubResource("RectangleShape2D_5popk")
+
+[node name="invul_timer" type="Timer" parent="Player"]
+wait_time = 1.5
+
+[node name="blink_timer" type="Timer" parent="Player"]
+wait_time = 0.1
+
+[node name="shoot_sfx" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("3_fisei")
+volume_db = -20.0
+autoplay = true
+
+[node name="hurt_sfx" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("4_k15um")
+volume_db = -20.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = -176.0
+offset_top = -184.0
+offset_right = 176.0
+offset_bottom = -136.0
+theme_override_font_sizes/font_size = 31
+text = "Just Shapes and Bullets"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="Player/Area2D" to="Player" method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Player/invul_timer" to="Player" method="_on_invul_timer_timeout"]
+[connection signal="timeout" from="Player/blink_timer" to="Player" method="_on_blink_timer_timeout"]

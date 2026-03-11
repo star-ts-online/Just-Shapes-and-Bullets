@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b0ff7j18s3fmy"
+path="res://.godot/imported/Just Shapes and Bullets OST.ogg-f734807685da636632085b5a226b3e2c.oggvorbisstr"
+
+[deps]
+
+source_file="res://SFX/Just Shapes and Bullets OST.ogg"
+dest_files=["res://.godot/imported/Just Shapes and Bullets OST.ogg-f734807685da636632085b5a226b3e2c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
